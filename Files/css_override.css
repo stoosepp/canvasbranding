@@ -1,0 +1,202 @@
+/* Replace the gray background with something that matches your colors.  You can use .pngs with alpha transparency. If you don't use an image, you need to remove ours*/
+
+/*AFTER LOGGED IN HEADER */
+#header {
+ background: url("header_bg.jpg") repeat-x scroll center transparent;
+
+ /* background: url("noisy_blue.png?v1") repeat-x scroll center transparent;
+ OR background-image: none;
+ background-color: #4589B1;*/
+}
+
+
+/*replace the canvas logo with your logo*/
+#header-logo, #header.no-user #header-logo {
+ background: url("btcheaderlogo.png") no-repeat scroll 0 0 transparent;
+ bottom: 3px;
+ height: 59px;
+ left: 7px;
+ width: 230px;
+}
+
+#header.no-user {
+   background-position: 0 -25px;
+   min-height:  70px;
+}
+/*if you replace the left canvas logo, move a smaller one to the right side of the header--I made the image gray first*/
+#header-logo-secondary {
+ background: url("canvaslogo.png") no-repeat scroll 0 0 transparent;
+ bottom: 11px;
+ height: 26;
+ position: absolute;
+ right: 26px;
+ width: 135px;
+ display: block;
+}
+
+/*if your logo is bigger, you can make room like this*/
+#menu { margin-left: 250px; }
+
+/*change the identity bar (the area that says "Hilary Scharton Inbox Settings Logout Help)*/
+#identity {
+ background-image: none;
+ /*background-color: #A1C42E;*/
+ background-color:#006699;
+ border-style: none none none;
+   border-bottom-left-radius: 5px;
+   border-bottom-right-radius: 5px;
+   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+
+/*change the color of the identity text*/
+#identity a { color: rgba(255,255,255,0.75);}
+/*change the color of the circle around the number of unread inbox messages*/
+#identity .inbox a .unread-messages-count { background-color: #F2F0DD; }
+#identity #identity-help-container a { color: rgba(255,255,255,0.9);}
+
+/*change the color of the menu items (courses & groups etc.). If the text looks fuzzy, remove the text shadow.*/
+.menu-item .menu-item-title, .menu-item .menu-item-no-drop {
+ color: #FAFBF4;
+ text-shadow: none;
+}
+/*Notification Count*/
+#identity .inbox a .unread-messages-count {
+   background-color: #AE5321;
+}
+
+/*MOBILE LOGIN BOX*/
+/*-------------------------*/
+
+body{
+background-color: transparent;
+background-image: url(lightbluebg.jpg);
+ }
+
+#f1_container{
+   padding-top: 20px;
+}
+
+#f1_card
+{
+border-top: 30px solid transparent;
+
+  border-radius: 0;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.75);
+     background: url(btcheaderlogo.png) no-repeat center top, url(mobileloginbg.png);
+     padding-top:75px;
+      padding-bottom:60px;
+}
+.face{
+border-radius: none;
+background-color: transparent;
+  
+}
+
+input{
+  background: #f3f3f3;
+  border-radius: 5px;
+  font-weight: normal;
+}
+
+
+
+/*LOGIN BOX*/
+/*-------------------------*/
+
+
+
+#modal-box.login-box { background: url("btccanvaslogin.jpg") no-repeat !important }
+
+/*this will remove the extra canvas logo*/
+body.modal #modal-box.login-box h1 {
+   background: none repeat scroll 0 0 transparent;
+   height: 150px;
+}
+
+/*resize the login box to fit my image and change the color of 'stay signed in'*/
+body.modal #modal-box.login-box {
+   color: #2784A0;
+   height: 371px;
+   width: 662px;
+}
+
+
+/*moves Login fields up*/
+body.modal #modal-box.login-box {
+   padding: 0px;
+}
+
+
+
+/*change the color of 'don't know your password'*/
+body.modal #modal-box.login-box a { color: white !important; }
+
+/*change the color of the login button*/
+body.modal #modal-box .button, body.modal #login-box .button {
+ background-color: #000000 !important;
+ background-image: none !important;
+ border-color: #668F78;
+}
+
+
+ 
+#login_form .btn-primary, #login_form .btn-primary:hover {
+ background-color: #ae5321;
+ background-image: none;
+ border: none !important;
+ }
+ 
+/* MODAL BOX */
+
+body.modal #modal-box
+{
+background: url("header_bg.jpg") repeat scroll center transparent;
+color:white;
+}
+
+/* hide buttons */
+.reset_course_content{
+ display:none !important;
+}
+
+
+/* HELP BOX OPTIONS */
+
+#help-dialog-options a[href="#create_ticket"] {
+ display:none !important;
+ 
+}
+/*
+#help-dialog-options a[href="http://help.instructure.com/categories/20057816-feature-request-categories"] {
+ display:none !important;
+}
+*/
+#help-dialog-options a[href="http://help.instructure.com/forums/20225783-canvas-coach-q-a-site"] {
+ display:none !important;
+}
+
+// Size the Please Log In warning properly
+#unauthorized_holder {
+ width: 620px;
+}
+
+.student-login-help
+{
+background: url("blankheader.jpg") no-repeat scroll 0 0 transparent;
+position: absolute;
+top: 0;
+width:60%;
+margin-left:25%;
+height:150px;
+color:white;
+line-height: 2em;
+
+}
+
+.hidden
+{
+opacity:0;
+
+
+}
