@@ -1,7 +1,7 @@
 /* Stock file for use as Canvas global javascript file
 This file hides: Delete My Account for all users and hides Reset Course Content and Conclude This Course for faculty.
 Supplied by SBCTC, with no guarantee as to quality or freshness.
-Last update: February, 2013  
+Last update: May 2014  
 */
 
 
@@ -17,41 +17,65 @@ $(document).ready(function() {
         $("a:contains('Delete My Account')").hide();
     }
 	
-	//This changes the login form placeholders on both desktop and mobile login pages.
-	//What it does is gets your doman and makes sure that the changes only apply to your login page
-	var url = 'https://'
-	url += window.location.hostname;
-	url += '/login';
-	//alert(url);
-	//alert(window.location.href);
-	if (window.location.href == url ) {
-		var sp = $('#login_form label[for=pseudonym_session_unique_id]>span');
-		sp.text('');
-		//This Changes the Mobile Login Form to show Student or Instructor ID
-		document.getElementsByName('pseudonym_session[unique_id]')[0].placeholder='Student or Instructor ID';
-	}
+                // Login form updates - runs only on login page                                
+                if (document.URL.indexOf("/login")>0) {
+                
+                                // Username and passwords prompts
+                                //    Mobile only has placeholder value set on element: name="pseudonym_session[unique_id]" value="SID"
+                                //    Desktop has instead: label for="pseudonym_session_unique_id" containing: <span>SID</span>
+                                // Test for desktop by looking for label 
+                                if ($("label[for='pseudonym_session_unique_id']").length) {
+									/*if (navigator.userAgent.match(/Firefox/)) {
+									//Firefox
+									//	alert('You are using Firefox')
+										$("label[for='pseudonym_session_unique_id']").html('<span style="width:200px;">Student or Instructor ID<span>');  // Username prompt
+										$("label[for='pseudonym_session_password']").html('<span style="width:200px;">PW: 1st 6 of last name<span>'); // Password prompt  
+										$("label[for='pseudonym_session_unique_id_forgot']").html('<span style="width:200px;">BTC Email Address<span>');
+									}
+									if(navigator.userAgent.match(/MSIE/)){
+									//IE
+									//alert('You are using IE')
+                                    $("label[for='pseudonym_session_unique_id']").html('Student or Instructor ID');  // Username prompt
+                                    $("label[for='pseudonym_session_password']").html('PW: 1st 6 of last name'); // Password prompt  
+									$("label[for='pseudonym_session_unique_id_forgot']").html('BTC Email Address');
+									}
+									if (navigator.userAgent.match(/Chrome/)){
+									//Chrome
+									//alert('You are using Chrome')
+                                    $("label[for='pseudonym_session_unique_id']").html('Student or Instructor ID');  // Username prompt
+                                    $("label[for='pseudonym_session_password']").html('PW: 1st 6 of last name'); // Password prompt  
+									$("label[for='pseudonym_session_unique_id_forgot']").html('BTC Email Address');
+									} */
+									//Generic
+									$("label[for='pseudonym_session_unique_id']").html('Student or Instructor ID'); // Username prompt
+									$("label[for='pseudonym_session_password']").html('PW: 1st 6 of last name'); // Password prompt                        
+									$("label[for='pseudonym_session_unique_id_forgot']").html('BTC Email Address');
+								}
+                                else {
+                                    // Mobile
+                                    document.getElementsByName('pseudonym_session[unique_id]')[0].placeholder='Student or Instructor ID';               // username prompt
+                                    document.getElementsByName('pseudonym_session[password]')[0].placeholder='PW: 1st 6 of last name';  // password prompt                            
+									document.getElementsByName('pseudonym_session[unique_id_forgot]')[0].placeholder='BTC Email Address';
+							   }                                                                             
+                                
+                                                
+                                
+                } // End of logon form updates - any logon form script must be above this line.
+
 	
-	if(window.location.pathname.search('enroll'))
-    {
-		var enrollText = $("p:contains('Please enter your email and password:')");
-		enrollText.text('Please enter your Student ID:');
-		var enrollSp = $("label.control-label:[for=student_email]contains('Email')");
-		enrollSp.text('Student ID');
-	}
 //This is the JS for altering the footer links on the login page etc.:
 //Footer cleanup
-                //Remove old
-                $("a[href='http://www.instructure.com/privacy-policy']").remove();
-                $("a[href='http://www.instructure.com/terms-of-use']").remove();
-                $("a[href='http://facebook.com/instructure']").remove();
-                $("a[href='http://twitter.com/instructure']").remove();
-     
-	 //This code changes the text on the 'forgot password' screen
+                // Example below removes the default Canvas footer items
+    $("a[href='http://www.instructure.com/images/footer-logo.png']").remove();
+    $("a[href='http://www.instructure.com/policies/privacy-policy-instructure']").remove();
+    $("a[href='http://www.instructure.com/policies/terms-of-use']").remove();
+    $("a[href='http://facebook.com/instructure']").remove();
+    $("a[href='http://twitter.com/instructure']").remove();
 
-$("#forgot_password_form > p").html("<p>Enter your Student Email Address and we'll send you a link so you can change your password.</p>"); 
-$("#forgot_password_form > div > span.field-with-fancyplaceholder > label").html("<span>Student Email Address</span>");	 
+     
+
      //Add new
-     $('#footer-links').append('<a href="http://www.btc.ctc.edu/">Bellingham Technical College</a>');
+     $('#footer-links').append('<a href="http://www.btc.ctc.edu/">Bellingham Technical College </a>');
      $('#footer-links').append('<a href="http://www.facebook.com/bellinghamtech">Facebook</a>');   
     
     //After footer
@@ -59,7 +83,7 @@ $("#forgot_password_form > div > span.field-with-fancyplaceholder > label").html
     $('.login-options').append('<br/><a id="login_forgot_password" class="show_password_hint" href="#">What is my default password?</a>');  
    // $('div#forgot_password_form').text($(this).attr("data-text"));
 
-$("li.section:contains('Conferences')").hide();
+//$("li.section:contains('Conferences')").hide();
 
 //Script to show password hint.
 $(".show_password_hint").click(function() {
