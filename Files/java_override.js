@@ -1,12 +1,103 @@
 /* Stock file for use as Canvas global javascript file
 This file hides: Delete My Account for all users and hides Reset Course Content and Conclude This Course for faculty.
 Supplied by SBCTC, with no guarantee as to quality or freshness.
-Last update: May 2014  
+Last update: February, 2013  
 */
 
+//Canvabadges stuff
+
+$(function() {
+  // NOTE: if pasting this code into another script, you'll need to manually change the
+  // next line. Instead of assigning the value null, you need to assign the value of
+  // the Canvabadges domain, i.e. "https://www.canvabadges.org". If you have a custom
+  // domain configured then it'll be something like "https://www.canvabadges.org/_my_site"
+  // instead.
+  var protocol_and_host = "https://www.canvabadges.org";
+  if(!protocol_and_host) {
+    var $scripts = $("script");
+    $("script").each(function() {
+      var src = $(this).attr('src');
+      if(src && src.match(/canvas_profile_badges/)) {
+        var splits = src.split(/\//);
+        protocol_and_host = splits[0] + "//" + splits[2];
+      }
+      var prefix = src && src.match(/\?path_prefix=\/(\w+)/);
+      if(prefix && prefix[1]) {
+        protocol_and_host = protocol_and_host + "/" + prefix[1];
+      }
+    });
+  }
+  if(!protocol_and_host) {
+    console.log("CANVABADGES: Couldn't find a valid protocol and host. Canvabadges will not appear on profile pages until this is fixed.");
+  }
+  var match = location.href.match(/\/(users|about)\/(\d+)$/);
+  if(match && protocol_and_host) {
+    var user_id = match[2];
+    var domain = location.host;
+    var url = protocol_and_host + "/api/v1/badges/public/" + user_id + "/" + encodeURIComponent(domain) + ".json";
+    $.ajax({
+      type: 'GET',
+      dataType: 'jsonp',
+      url: url,
+      success: function(data) {
+        if(data.objects && data.objects.length > 0) {
+          var $box = $("<div/>", {style: 'margin-bottom: 20px;'});
+          $box.append("<h2 class='border border-b'>Badges Awarded</h2>");
+          for(idx in data.objects) {
+            var badge = data.objects[idx];
+            var $badge = $("<div/>", {style: 'float: left;'});
+            var link = protocol_and_host + "/badges/criteria/" + badge.config_id + "/" + badge.config_nonce + "?user=" + badge.nonce;
+            var $a = $("<a/>", {href: link});
+            $a.append($("<img/>", {src: badge.image_url, style: 'width: 90px; height: 90px; padding-right: 10px;'}));
+            $badge.append($a);
+            $box.append($badge);
+          }
+          $box.append($("<div/>", {style: 'clear: left'}));
+          $("#edit_profile_form,fieldset#courses,.more_user_information + div").after($box);
+        } else {
+          console.log("CANVABADGES: no badges found for the user: " + user_id + " at " + domain);
+        }
+      },
+      error: function() {
+        console.log("CANVABADGES: badges failed to load, API error response");
+      },
+      timeout: 5000
+    });
+  }
+});
 
 
+  
 $(document).ready(function() {
+
+
+// --- Google Analytics code ---
+/*
+var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-49112339-3']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+  */
+  
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-49112339-3', 'auto');
+  ga('send', 'pageview');
+
+
+ 
+
+  // ---- End Google Analytics ----
+
 
     var docUrl = document.URL;  // Get the page URL once, for use multiple times  
 
@@ -149,6 +240,8 @@ $(".loginNote").toggleClass("hidden");
     }
 	
 });
+
+
 
  
     
