@@ -74,7 +74,7 @@ $(document).ready(function() {
 // --- Google Analytics code ---
 /*
 var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-49112339-3']);
+  _gaq.push(['_setAccount', 'UA-XXXXXXXXX']);
   _gaq.push(['_trackPageview']);
 
   (function() {
